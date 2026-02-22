@@ -65,11 +65,17 @@ def main():
 
         if available_docs:
             st.info(f"Ready to analyze: {', '.join(available_docs)}")
+        else:
+            st.caption("Upload at least one document above, or run with demo data")
 
-        if available_docs:
-            if st.button("🧠 GENERATE ANALYSIS NOW", type="primary", use_container_width=True):
-                st.session_state.run_analysis = True
-                st.rerun()
+    # MAIN AREA: Generate button always visible
+    st.markdown("---")
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("🧠 GENERATE ANALYSIS", type="primary", use_container_width=True):
+            st.session_state.run_analysis = True
+            st.rerun()
+    st.caption("Click to analyze uploaded documents (or run with demo data if none uploaded)")
 
     # DEBUG PANEL
     if DEBUG:
