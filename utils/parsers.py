@@ -70,7 +70,9 @@ def parse_you2_pdf(pdf_bytes) -> Dict:
             return {
                 'priorities': ['Lifestyle', 'Wealth'],
                 'health_concerns': True,
-                'insurance_concern': True
+                'insurance_concern': True,
+                'current_state': 'Corporate employee feeling stuck',
+                'vision_summary': 'Career Ownership with flexibility'
             }
 
         if isinstance(pdf_bytes, BytesIO):
@@ -91,19 +93,27 @@ def parse_you2_pdf(pdf_bytes) -> Dict:
         has_health = 'health' in text.lower() or 'cancer' in text.lower()
         has_insurance = 'insurance' in text.lower()
 
+        # Extract vision-related content
+        current_state = 'Corporate employee feeling stuck' if 'corporate' in text.lower() or 'job' in text.lower() else 'In transition'
+        vision_summary = 'Career Ownership with flexibility' if 'ownership' in text.lower() or 'business' in text.lower() else 'Freedom and control'
+
         return {
             'priorities': ['Lifestyle', 'Wealth'],
             'dangers': ['Age discrimination', 'Health issues', 'Corporate burnout'],
             'opportunities': ['Travel', 'Flexible schedule', 'Own business'],
             'health_concerns': has_health,
             'insurance_concern': has_insurance,
+            'current_state': current_state,
+            'vision_summary': vision_summary,
             'raw_text': text[:500]
         }
     except Exception:
         return {
             'priorities': ['Lifestyle'],
             'health_concerns': True,
-            'insurance_concern': True
+            'insurance_concern': True,
+            'current_state': 'Corporate employee feeling stuck',
+            'vision_summary': 'Career Ownership with flexibility'
         }
 
 
